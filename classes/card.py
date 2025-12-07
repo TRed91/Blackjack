@@ -1,13 +1,13 @@
 from enum import Enum
 
 class CardType(Enum):
-    HEARTS = "Hearts"
-    DIAMONDS = "Diamonds"
-    CLUBS = "Clubs"
-    SPADES = "Spades"
+    HEARTS = "H"
+    DIAMONDS = "D"
+    CLUBS = "C"
+    SPADES = "S"
 
 class CardNumber(Enum):
-    ACE = "Ace"
+    ACE = "A"
     TWO = 2
     THREE = 3
     FOUR = 4
@@ -16,10 +16,10 @@ class CardNumber(Enum):
     SEVEN = 7
     EIGHT = 8
     NINE = 9
-    TEN = 10
-    JACK = "Jack"
-    QUEEN = "Queen"
-    KING = "King"
+    TEN = "T"
+    JACK = "J"
+    QUEEN = "Q"
+    KING = "K"
 
 
 class Card:

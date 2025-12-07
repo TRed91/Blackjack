@@ -7,12 +7,12 @@ import os
 
 class Game:
 
-    def __init__(self):
+    def __init__(self, mode : str):
         self.dealer = Player("Dealer", False)
         self.players : list[Player] = []
         self.deck = Deck()
         self.MAX_PLAYERS : int = 6
-        self.__io : IO_Interface = IO_Factory.get_console_io()
+        self.__io : IO_Interface = IO_Factory.get_io(mode)
 
 
     def run(self) -> None:
@@ -74,13 +74,16 @@ class Game:
     
     def __player_play(self, player : Player) -> PlayerResult:
         while True:
-            self.__io.print_hand(player)
-            messages = [
+
+            options_msg = [
                 f"--- {player.name}'s turn: ",
                 "1. Hit (Take another card)",
                 "2. Stand (Keep hand)"
             ]
-            self.__io.print_block_msg(messages)
+            self.__io.print_block_msg(options_msg)
+
+            self.__io.print_hand(player)
+
             if self.__io.get_number_input(1, 2, "") == 1:
                 player.take_card(self.deck)
                 player.calculate_points()

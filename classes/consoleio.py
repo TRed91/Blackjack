@@ -49,10 +49,30 @@ class ConsoleIO(IO_Interface):
 
 
 
-    def print_hand(self, player : Player) -> None:
+    def print_hand(self, player : Player, is_first_round : bool = False) -> None:
+        # Print header
         print(f"\n======= {player.name}'s hand:")
-        for card in player.hand:
-            print(f"{card.number.value} of {card.type.value}")
+
+        # Format card printing 
+        numbers_line = ""
+        types_line = ""
+
+            # hide second card if is dealer and first round
+        if (is_first_round and not player.is_human):
+            numbers_line = f"| {player.hand[0].number.value} |\t|###|"
+            types_line = f"| {player.hand[0].type.value} |\t|###|"
+        else:
+            for card in player.hand:
+                numbers_line += f"| {card.number.value} |\t"
+                types_line += f"| {card.type.value} |\t"
+
+        # Print cards
+        print("*****\t" * len(player.hand))
+        print(numbers_line)
+        print(types_line)
+        print(("*****\t" * len(player.hand)) + "\n")
+        
+        # Print points or blackjack
         if player.has_blackjack():
             print("\tBLACKJACK!")
         else:
@@ -62,13 +82,8 @@ class ConsoleIO(IO_Interface):
 
 
     def print_board(self, players : list[Player], dealer : Player, is_first_round : bool) -> None:
-        if is_first_round:
-            print("======= Dealer's hand:")
-            print(f"{dealer.hand[0].number.value} of {dealer.hand[0].type.value}")
-            print(f"- hidden -")
-            print()
-        else:
-            self.print_hand(dealer)
+        
+        self.print_hand(dealer, is_first_round)
 
         for player in players:
             self.print_hand(player)
@@ -78,6 +93,8 @@ class ConsoleIO(IO_Interface):
     def print_result(self, players : list[Player], dealer : Player) -> None:
         print("\n======= Game Result =======")
 
+        self.print_board(players, dealer, False)
+
         max_points = float("-inf")
         winner : Player = None
 
@@ -86,7 +103,7 @@ class ConsoleIO(IO_Interface):
             winner = dealer
 
         messages = [ f"{dealer.name} - {dealer.result.value}: {dealer.points}" ]
-        
+
         for player in players:
             messages.append(f"{player.name} - {player.result.value}: {player.points}")
             if player.result != PlayerResult.BUST:
@@ -95,4 +112,8 @@ class ConsoleIO(IO_Interface):
                     winner = player
 
         self.print_block_msg(messages)
-        self.print_info_msg(f"{winner.name} WINS THE ROUND!")
+
+        if winner:
+            self.print_info_msg(f"{winner.name} WINS THE ROUND!")
+        else:
+            self.print_info_msg(f"DRAW!")

@@ -61,7 +61,8 @@ class Player:
     def __get_card_value(self, card : Card) -> int:
         if (card.number == CardNumber.KING or 
             card.number == CardNumber.QUEEN or 
-            card.number == CardNumber.JACK):
+            card.number == CardNumber.JACK or
+            card.number == CardNumber.TEN):
             return 10
         
         return int(card.number.value)

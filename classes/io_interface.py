@@ -19,7 +19,7 @@ class IO_Interface(ABC):
         pass
 
     @abstractmethod
-    def print_hand(self, player : Player) -> None:
+    def print_hand(self, player : Player, is_first_round : bool) -> None:
         pass
 
     @abstractmethod
