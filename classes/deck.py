@@ -24,4 +24,4 @@ class Deck:
         for _ in range(NUM_OF_DECKS):
             for t in CardType:
                 for n in CardNumber:
-                    self.__deck.append(Card(n, t))
+                    self.__deck.append(Card(number=n, type=t))

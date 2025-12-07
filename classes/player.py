@@ -1,5 +1,6 @@
 from classes.card import Card, CardNumber
 from classes.deck import Deck
+from classes.results import PlayerResult
 
 class Player:
     def __init__(self, name : str, is_human : bool = True):
@@ -7,11 +8,31 @@ class Player:
         self.is_human : bool = is_human
         self.hand : list[Card] = []
         self.points : int = 0
+        self.result : PlayerResult = PlayerResult.NONE
     
+
     def take_card(self, deck : Deck) -> None:
         self.hand.append(deck.pull())
+
+
+    def has_blackjack(self) -> bool:
+        if (self.hand[0].number == CardNumber.ACE and (
+            self.hand[1].number == CardNumber.TEN or 
+            self.hand[1].number == CardNumber.JACK or 
+            self.hand[1].number == CardNumber.QUEEN or 
+            self.hand[1].number == CardNumber.KING)):
+            return True
+        if ((self.hand[0].number == CardNumber.TEN or 
+            self.hand[0].number == CardNumber.JACK or 
+            self.hand[0].number == CardNumber.QUEEN or 
+            self.hand[0].number == CardNumber.KING) and
+            self.hand[1].number == CardNumber.ACE):
+            return True
+        
+        return False
+
     
-    def calculate_points(self) -> int:
+    def calculate_points(self) -> None:
         if len(self.hand) == 0:
             return 0
         
@@ -34,7 +55,8 @@ class Player:
             else:
                 total += 11
 
-        return total
+        self.points = total
+
     
     def __get_card_value(self, card : Card) -> int:
         if (card.number == CardNumber.KING or 
@@ -42,4 +64,4 @@ class Player:
             card.number == CardNumber.JACK):
             return 10
         
-        return card.number.value[0]
+        return int(card.number.value)

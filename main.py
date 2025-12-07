@@ -1,5 +1,4 @@
-from classes.deck import Deck
+from classes.game import Game
 
-deck = Deck()
-
-print(deck.pull())
+game = Game()
+game.run()

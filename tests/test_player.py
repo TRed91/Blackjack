@@ -28,13 +28,34 @@ class Test_Player(unittest.TestCase):
             Card(CardNumber.SIX, CardType.SPADES)
         ]
         
-        self.assertEqual(player.calculate_points(), 10)
+        player.calculate_points()
+        self.assertEqual(player.points, 10)
 
         player.hand.append(Card(CardNumber.KING, CardType.HEARTS))
-        self.assertEqual(player.calculate_points(), 20)
+        player.calculate_points()
+        self.assertEqual(player.points, 20)
 
         player.hand.append(Card(CardNumber.ACE, CardType.HEARTS))
-        self.assertEqual(player.calculate_points(), 21)
+        player.calculate_points()
+        self.assertEqual(player.points, 21)
+    
+    def test_has_blackjack(self):
+        player = Player("John")
+        player.hand = [
+            Card(CardNumber.ACE, CardType.DIAMONDS),
+            Card(CardNumber.JACK, CardType.SPADES)
+        ]
+
+        self.assertTrue(player.has_blackjack())
+
+    def test_has_not_blackjack(self):
+        player = Player("John")
+        player.hand = [
+            Card(CardNumber.ACE, CardType.DIAMONDS),
+            Card(CardNumber.THREE, CardType.SPADES)
+        ]
+
+        self.assertFalse(player.has_blackjack())
 
 
 
