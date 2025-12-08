@@ -1,5 +1,6 @@
 from classes.io_interface import IO_Interface, Player
 from classes.results import *
+from classes.player_choice import PlayerChoice
 
 class ConsoleIO(IO_Interface):
     def __init__(self):
@@ -34,6 +35,24 @@ class ConsoleIO(IO_Interface):
             else:
                 return input_str
     
+
+
+    def get_player_choice(self, player : Player) -> PlayerChoice:
+
+        options_msg = [
+            f"--- {player.name}'s turn: ",
+            "1. Hit (Take another card)",
+            "2. Stand (Keep hand)"
+        ]
+        self.print_block_msg(options_msg)
+
+        self.print_hand(player)
+
+        if self.get_number_input(1, 2, "") == 1:
+            return PlayerChoice.HIT
+        else:
+            return PlayerChoice.STAND
+
 
 
     def print_info_msg(self, msg : str) -> None:

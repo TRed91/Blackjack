@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from classes.player import Player
+from classes.player_choice import PlayerChoice
 
 class IO_Interface(ABC):
     @abstractmethod
@@ -8,6 +9,10 @@ class IO_Interface(ABC):
 
     @abstractmethod
     def get_string_input(self, prompt: str) -> str:
+        pass
+
+    @abstractmethod
+    def get_player_choice(self, player : Player) -> PlayerChoice:
         pass
 
     @abstractmethod

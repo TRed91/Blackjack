@@ -2,6 +2,7 @@ from classes.deck import Deck
 from classes.card import *
 from classes.player import Player
 from classes.results import PlayerResult
+from classes.player_choice import PlayerChoice
 from classes.io_factory import IO_Factory, ConsoleIO, IO_Interface
 import os
 
@@ -74,17 +75,7 @@ class Game:
     
     def __player_play(self, player : Player) -> PlayerResult:
         while True:
-
-            options_msg = [
-                f"--- {player.name}'s turn: ",
-                "1. Hit (Take another card)",
-                "2. Stand (Keep hand)"
-            ]
-            self.__io.print_block_msg(options_msg)
-
-            self.__io.print_hand(player)
-
-            if self.__io.get_number_input(1, 2, "") == 1:
+            if self.__io.get_player_choice(player) == PlayerChoice.HIT:
                 player.take_card(self.deck)
                 player.calculate_points()
                 if player.points == 21:
