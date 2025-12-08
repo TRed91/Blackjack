@@ -9,7 +9,7 @@ class GameBoard:
     def __init__(self, root : Tk):
 
         self.root = root
-        self.players : dict[str, tuple[HandWidget, ChoiceButtonWidget]] = {}
+        self.players : dict[str, tuple[HandWidget, ChoiceButtonWidget, Label]] = {}
         
         root.title("Gameboard")
 
@@ -51,12 +51,13 @@ class GameBoard:
         hw = HandWidget(self.mainframe, row + 2)
         hw.set_cards(player.hand)
         
-        ttk.Label(self.mainframe, text=player.points, justify="center").grid(column=3, row=row + 2, sticky=(W, E))
+        points_label = ttk.Label(self.mainframe, text=player.points, justify="center")
+        points_label.grid(column=3, row=row + 2, sticky=(W, E))
         
         bw = ChoiceButtonWidget(self.mainframe, row + 2)
         bw.disable_buttons()
 
-        self.players[player.name] = (hw, bw)
+        self.players[player.name] = (hw, bw, points_label)
 
 
     def get_choice(self, player : Player) -> PlayerChoice:
@@ -72,3 +73,4 @@ class GameBoard:
 
     def update_hand(self, player : Player):
         self.players[player.name][0].set_cards(player.hand)
+        self.players[player.name][2].config(text=player.points)

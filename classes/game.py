@@ -75,6 +75,7 @@ class Game:
     
     def __player_play(self, player : Player) -> PlayerResult:
         while True:
+            self.__io.print_hand(player)
             if self.__io.get_player_choice(player) == PlayerChoice.HIT:
                 player.take_card(self.deck)
                 player.calculate_points()
@@ -95,3 +96,10 @@ class Game:
             player.take_card(self.deck)
             player.take_card(self.deck)
             player.calculate_points()
+
+    
+    def get_root(self):
+        from classes.ui_classes.gui_io import GuiIO
+        if isinstance(self.__io, GuiIO):
+            return self.__io.root
+        return None

@@ -8,7 +8,7 @@ class ChoiceButtonWidget:
 
         self.row = row
         self.choice = PlayerChoice.NONE
-        self.pressed_signal = IntVar()
+        self.pressed_signal = IntVar(master=parent)
         
         self.buttonsframe = ttk.Frame(parent, padding=(5,3,5,3))
         self.buttonsframe.grid(column=4, row=row, sticky=E)

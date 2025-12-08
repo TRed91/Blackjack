@@ -46,8 +46,6 @@ class ConsoleIO(IO_Interface):
         ]
         self.print_block_msg(options_msg)
 
-        self.print_hand(player)
-
         if self.get_number_input(1, 2, "") == 1:
             return PlayerChoice.HIT
         else:

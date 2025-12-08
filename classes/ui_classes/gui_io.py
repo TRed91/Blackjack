@@ -6,23 +6,25 @@ class GuiIO(IO_Interface):
 
     def __init__(self):
         self.root = Tk()
-        
+        #self.root.withdraw()
         #self.__set_window()
 
-        self.gameboard = GameBoard(self.root)
+        self.gameboard = None
 
     def get_number_input(self, start: int, end: int, prompt: str = None) -> int:
         from classes.ui_classes.widget_number_input import NumPlayersWidget
-        widget_num_players = NumPlayersWidget(self.root, start, end, prompt, "Enter number of players")
-        self.root.mainloop()
-        return widget_num_players.get_num()
+        widget = NumPlayersWidget(self.root, start, end, prompt, "Enter number of players")
+        self.root.wait_window(widget.top)
+        #self.root.mainloop()
+        return widget.get_num()
 
 
 
     def get_string_input(self, prompt: str) -> str:
         from classes.ui_classes.widget_string_input import StringInputWidget
         widget = StringInputWidget(self.root, prompt, "Player Name Input")
-        self.root.mainloop()
+        self.root.wait_window(widget.top)
+        #self.root.mainloop()
         return widget.get_value()
 
 
@@ -46,11 +48,18 @@ class GuiIO(IO_Interface):
 
 
     def print_board(self, players : list[Player], dealer : Player, is_first_round : bool = False) -> None:
+        self.root.deiconify()
+        self.root.lift()
+        try:
+            self.root.focus_force()
+        except Exception:
+            pass
+
         self.gameboard = GameBoard(self.root)
         self.gameboard.set_dealer_hand(dealer)
         for i in range(len(players)):
             self.gameboard.insert_player(players[i], i + 1)
-        self.root.mainloop()
+        #self.root.mainloop()
 
 
 
