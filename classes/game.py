@@ -18,7 +18,7 @@ class Game:
     def run(self) -> None:
 
         number_of_players = self.__io.get_number_input(1, self.MAX_PLAYERS, "Enter number of players")
-
+        
         for i in range(number_of_players):
             name = self.__io.get_string_input(f"Enter name for player {i + 1}: ")
             self.players.append(Player(name))
