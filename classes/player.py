@@ -3,6 +3,7 @@ from classes.deck import Deck
 from classes.results import PlayerResult
 
 class Player:
+    
     def __init__(self, name : str, is_human : bool = True):
         self.name : str = name
         self.is_human : bool = is_human

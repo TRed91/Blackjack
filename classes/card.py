@@ -23,6 +23,7 @@ class CardNumber(Enum):
 
 
 class Card:
+    
     def __init__(self, number : CardNumber ,type : CardType):
         self.number = number
         self.type = type

@@ -9,8 +9,6 @@ class NumPlayersWidget:
         self.range_end = range_end
         self.return_num = -1
 
-        self.done = BooleanVar(master=root, value=False)
-
         self.top = Toplevel(root)
         self.top.title(title)
         self.top.transient(root)
@@ -45,20 +43,22 @@ class NumPlayersWidget:
         num_entry.focus_set()
         self.top.bind("<Return>", self.set_num)
 
+
+
     def set_num(self, *args) -> None:
         value = self.num_players.get()
         if value.isdigit():
             num = int(value)
             if num >= self.range_start and num <= self.range_end:
                 self.return_num = num
-                self.done.set(True)
-                #self.mainframe.quit()
                 self.top.grab_release()
                 self.top.destroy()
             else:
                 self.message.set(f"Input must be between {self.range_start} and {self.range_end}")
         else:
             self.message.set("Input must be a number")
+    
+
     
     def get_num(self, *args) -> int:
         return self.return_num

@@ -9,7 +9,6 @@ if mode == "gui":
 
     def start():
         game.run()
-        root.quit()
 
     root.after(0, start)
     root.mainloop()

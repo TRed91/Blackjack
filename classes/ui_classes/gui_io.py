@@ -6,16 +6,14 @@ class GuiIO(IO_Interface):
 
     def __init__(self):
         self.root = Tk()
-        #self.root.withdraw()
-        #self.__set_window()
+        self.__set_window()
 
-        self.gameboard = None
+        self.gameboard : GameBoard = None
 
     def get_number_input(self, start: int, end: int, prompt: str = None) -> int:
         from classes.ui_classes.widget_number_input import NumPlayersWidget
         widget = NumPlayersWidget(self.root, start, end, prompt, "Enter number of players")
         self.root.wait_window(widget.top)
-        #self.root.mainloop()
         return widget.get_num()
 
 
@@ -24,7 +22,6 @@ class GuiIO(IO_Interface):
         from classes.ui_classes.widget_string_input import StringInputWidget
         widget = StringInputWidget(self.root, prompt, "Player Name Input")
         self.root.wait_window(widget.top)
-        #self.root.mainloop()
         return widget.get_value()
 
 
@@ -48,23 +45,28 @@ class GuiIO(IO_Interface):
 
 
     def print_board(self, players : list[Player], dealer : Player, is_first_round : bool = False) -> None:
-        self.root.deiconify()
-        self.root.lift()
-        try:
-            self.root.focus_force()
-        except Exception:
-            pass
 
         self.gameboard = GameBoard(self.root)
-        self.gameboard.set_dealer_hand(dealer)
+        self.gameboard.set_dealer_hand(dealer, is_first_round)
+
+        has_blackjack = False
+
         for i in range(len(players)):
             self.gameboard.insert_player(players[i], i + 1)
-        #self.root.mainloop()
+
+            if is_first_round and players[i].has_blackjack():
+                has_blackjack = True
+
+        if has_blackjack:
+            self.print_result(players, dealer)
 
 
 
     def print_result(self, players : list[Player], dealer : Player) -> None:
-        pass
+        from classes.ui_classes.widget_result import ResultWidget
+        widget = ResultWidget(self.root, players, dealer)
+        self.root.wait_window(widget.top)
+        self.root.quit()
 
 
 
@@ -75,7 +77,7 @@ class GuiIO(IO_Interface):
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
 
-        pos_x = 100
-        pos_y = 150
+        pos_x = (screen_width/2) - (WIDTH/2)
+        pos_y = (screen_height/2) - (HEIGHT/2)
 
-        self.root.geometry(f"{WIDTH}x{HEIGHT}+{pos_x}+{pos_y}")
+        self.root.geometry(f"{WIDTH}x{HEIGHT}+{int(pos_x)}+{int(pos_y)}")

@@ -75,10 +75,10 @@ class Game:
     
     def __player_play(self, player : Player) -> PlayerResult:
         while True:
-            self.__io.print_hand(player)
             if self.__io.get_player_choice(player) == PlayerChoice.HIT:
                 player.take_card(self.deck)
                 player.calculate_points()
+                self.__io.print_hand(player)
                 if player.points == 21:
                     return PlayerResult.ON21
                 if player.points > 21:

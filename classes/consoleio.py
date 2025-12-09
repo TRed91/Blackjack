@@ -3,6 +3,7 @@ from classes.results import *
 from classes.player_choice import PlayerChoice
 
 class ConsoleIO(IO_Interface):
+    
     def __init__(self):
         pass    
     

@@ -2,6 +2,7 @@ from classes.card import Card, CardType, CardNumber
 import random
 
 class Deck:
+    
     def __init__(self):
         self.__deck : list[Card] = []
         self.__initialize_deck()

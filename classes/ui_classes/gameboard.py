@@ -40,8 +40,11 @@ class GameBoard:
 
 
 
-    def set_dealer_hand(self, dealer: Player):
-        HandWidget(self.mainframe, 1).set_cards(dealer.hand)
+    def set_dealer_hand(self, dealer: Player, is_first_round : bool = False):
+        if is_first_round:
+            HandWidget(self.mainframe, 1).set_dealer_cards(dealer.hand)
+        else:
+            HandWidget(self.mainframe, 1).set_cards(dealer.hand)
 
 
 
@@ -60,6 +63,7 @@ class GameBoard:
         self.players[player.name] = (hw, bw, points_label)
 
 
+
     def get_choice(self, player : Player) -> PlayerChoice:
         btns = self.players[player.name][1]
         
@@ -72,5 +76,8 @@ class GameBoard:
 
 
     def update_hand(self, player : Player):
-        self.players[player.name][0].set_cards(player.hand)
-        self.players[player.name][2].config(text=player.points)
+        if player.is_human:
+            self.players[player.name][0].set_cards(player.hand)
+            self.players[player.name][2].config(text=player.points)
+        else:
+            HandWidget(self.mainframe, 1).set_cards(player.hand)

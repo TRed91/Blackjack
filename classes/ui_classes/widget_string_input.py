@@ -6,7 +6,6 @@ class StringInputWidget:
     def __init__(self, root : Tk, prompt : str, title : str = "Enter name"):
         
         self.value = ""
-        self.done = BooleanVar(master=root, value=False)
 
         self.top = Toplevel(root)
         self.top.title(title)
@@ -42,16 +41,18 @@ class StringInputWidget:
         input_field.focus_set()
         self.top.bind("<Return>", self.set_value)
 
+
+
     def set_value(self, *args) -> None:
         input = self.player_name.get()
         if input.isspace() or len(input) == 0:
             self.message.set("Input can't be empty or whitespace only")
         else:
             self.value = input
-            self.done.set(True)
-            #self.mainframe.quit()
             self.top.grab_release()
             self.top.destroy()
     
+
+
     def get_value(self, *args) -> str:
         return self.value
