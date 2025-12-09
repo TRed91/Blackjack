@@ -1,7 +1,7 @@
 # Blackjack
 Boot.dev personal project
 
-![Play Cards](https://imgur.com/a/PSbE3vF)
+![Play Cards](static/cards.png)
 
 This app allows you to play a simplified version of a round of blackjack.
 
@@ -14,10 +14,15 @@ This app allows you to play a simplified version of a round of blackjack.
 - An Ace counts as either a 1 or a 11 depending in what is better for the hand.
 - Winner is whoever get's closes to 21 or has a **Blackjack**
 
+## Instructions
+
 To run this game make sure you go python3 installed.
 
-To play in cli mode type `./main.sh console` into your cli.\n
+To play in cli mode type `./main.sh console` into your cli.
+
 To play in gui mode type `./main.sh gui` into your cli.
+
+## Implementation
 
 The gui was implemented using tkinter.
 
