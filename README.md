@@ -1,11 +1,22 @@
 # Blackjack
 Boot.dev personal project
 
-This app allows you to play a round of blackjack.
+![Play Cards](https://imgur.com/a/PSbE3vF)
+
+This app allows you to play a simplified version of a round of blackjack.
+
+## Rules
+- If a player has an Ace and a Face Card or a Ten in their starting hand they have a **Blackjack**!
+- If no player has a blackjack, players keep drawing cards **(HIT)** trying to get as close to 21 as possible
+- If a player's points accumulate beyone 21 it's a **BUST** and they loose the game
+- Player's can make a **STAND** to keep their hand and avoid going beyond 21.
+- All face cards count as 10. Numbered cards count equal to their number.
+- An Ace counts as either a 1 or a 11 depending in what is better for the hand.
+- Winner is whoever get's closes to 21 or has a **Blackjack**
 
 To run this game make sure you go python3 installed.
 
-To play in cli mode type `./main.sh console` into your cli.
+To play in cli mode type `./main.sh console` into your cli.\n
 To play in gui mode type `./main.sh gui` into your cli.
 
 The gui was implemented using tkinter.
@@ -52,7 +63,7 @@ The Gui_IO class also acts as a wrapper for the tkinter implementation.
 With this object oriented approach i can leverage polymorphism and have
 my game loop only interact with the IO_Interface.
 
-depending on the argument passed to main the IO_Factory inject the appropriate interface.
+depending on the argument passed to main the IO_Factory injects the appropriate interface.
 ```
 class IO_Factory:
 
